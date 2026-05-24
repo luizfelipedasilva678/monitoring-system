@@ -1,0 +1,26 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./config:/mosquitto/config
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
+  mqttx:
+    image: emqx/mqttx-web:latest
+    container_name: mqttx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      # The web UI runs in the browser, so the host must be reachable from the host
+      # (use 127.0.0.1 because the broker's websocket listener is published on host:9001).
+      - "MQTT_HOST=127.0.0.1"
+      - "MQTT_PORT=9001"
+      - "MQTT_PROTOCOL=ws"
+    depends_on:
+      - mosquitto
