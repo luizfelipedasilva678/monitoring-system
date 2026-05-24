@@ -16,11 +16,5 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-    environment:
-      # The web UI runs in the browser, so the host must be reachable from the host
-      # (use 127.0.0.1 because the broker's websocket listener is published on host:9001).
-      - "MQTT_HOST=127.0.0.1"
-      - "MQTT_PORT=9001"
-      - "MQTT_PROTOCOL=ws"
     depends_on:
       - mosquitto
