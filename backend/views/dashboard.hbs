@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} - Monitoring</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  {{> nav}}
+  <main class="container">
+    <header class="page-header">
+      <h1>Registros de detecção</h1>
+      <p>Detecções capturadas pela sua câmera.</p>
+    </header>
+
+    <section class="card">
+      <ul class="events-list">
+        {{#each events}}
+          <li class="event-item" data-id="{{this.id}}">
+            <span class="event-payload">{{this.payload}}</span>
+            <time datetime="{{this.createdAt}}">{{this.createdAt}}</time>
+          </li>
+        {{else}}
+          <li class="event-item empty">Nenhuma detecção registrada ainda.</li>
+        {{/each}}
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

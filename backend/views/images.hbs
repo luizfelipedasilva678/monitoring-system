@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}} - Monitoring</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  {{> nav}}
+  <main class="container">
+    <header class="page-header">
+      <h1>Imagens capturadas</h1>
+      <p>Suas capturas enviadas pelo app de câmera.</p>
+    </header>
+
+    <section class="card">
+      <div class="gallery">
+        {{#each images}}
+          <article class="gallery-item">
+            <img src="data:{{this.mimeType}};base64,{{this.data}}" alt="{{this.filename}}">
+            <div class="gallery-meta">
+              <div class="gallery-info">
+                <span>{{this.filename}}</span>
+                {{#if this.motionEvent}}
+                  <span class="muted">Detecção: {{this.motionEvent.createdAt}}</span>
+                {{/if}}
+              </div>
+            </div>
+          </article>
+        {{else}}
+          <p class="empty">Nenhuma imagem capturada ainda.</p>
+        {{/each}}
+      </div>
+    </section>
+  </main>
+</body>
+</html>
